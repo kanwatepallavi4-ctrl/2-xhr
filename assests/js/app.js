@@ -23,9 +23,8 @@ function snackbar(msg,icon){
 function createcard(arr){
     let res=' ';
     arr.forEach(ele => {
-        res += `<div class="col-md-4 " id=${ele.id}>
+        res += `<div class="col-md-4" id=${ele.id}>
                     <div class="card">
-                        <div class="card-body">
                             <div class="card-header">
                                 <h3>${ele.title}</h3>
                             </div>
@@ -198,11 +197,23 @@ function onUpdate(){
       if(xhr.status>=200 && xhr.status<=200){ 
        let res = xhr.response; 
            let col= document.getElementById(updateId); 
-            let h3= col.querySelector('.card-header h3')
-               h3.innerText= updateObj.title;
+              col.innerHTML =` <div class="card">
+                                 <div class="card-header">
+                                 <H3>${updateObj.title} </H3>                           
+                                  </div>
+                                   <div class="card-body">
+                                     ${updateObj.body}
+                                    </div>
+                                 <div class="card-footer d-flex justify-content-between">
+                                  <button onclick="onEdit(this)" class="btn btn-inline-block btn-outline-primary">Edit</button>
+                                  <button onclick="onRemove(this)" class="btn btn-inline-block btn-outline-danger">Delete</button>
+                                 </div>
+                                </div>`
            
-            let p= col.querySelector('.card-header p')
-                p.innerText= updateObj.body;   
+                addpost.classList.remove('d-none'); 
+                updateBtn.classList.add('d-none');  
+                spinner.classList.add('d-none') 
+                postform.reset() 
 
             console.log(res); 
             
@@ -216,4 +227,4 @@ function onUpdate(){
 
 
 postform.addEventListener('submit', onPostSubmit)
- 
+ updateBtn.addEventListener('click', onUpdate)
